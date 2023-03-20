@@ -1,13 +1,10 @@
 import { galleryItems } from './gallery-items.js';
-// Change code below this line
-
-console.log(galleryItems);
 
 const galleryBox = document.querySelector('.gallery');
 
 function createGalleryElement(el) {
   return `<li class="gallery__item">
-  <a class="gallery__link" href="large-image.jpg">
+  <a class="gallery__link" href="${el.original}">
     <img
       class="gallery__image"
       src="${el.preview}"
@@ -20,3 +17,16 @@ function createGalleryElement(el) {
 
 const createdGallery = galleryItems.map(createGalleryElement).join('');
 galleryBox.insertAdjacentHTML('beforeend', createdGallery);
+
+
+galleryBox.addEventListener('click', ev => {
+  ev.preventDefault();
+  const galleryItem = ev.target.closest('.gallery__link');
+  if (!galleryItem) {
+    return;
+  }
+  const modal = basicLightbox.create(`<img src="${ev.target.dataset.source}">`)
+  modal.show();
+});
+
+
