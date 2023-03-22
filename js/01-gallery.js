@@ -18,15 +18,25 @@ function createGalleryElement(el) {
 const createdGallery = galleryItems.map(createGalleryElement).join('');
 galleryBox.insertAdjacentHTML('beforeend', createdGallery);
 
-
+let modal;
 galleryBox.addEventListener('click', ev => {
   ev.preventDefault();
-  const galleryItem = ev.target.closest('.gallery__link');
-  if (!galleryItem) {
+  if (!ev.target.closest('.gallery__link')) {
     return;
   }
-  const modal = basicLightbox.create(`<img src="${ev.target.dataset.source}">`)
+  modal = basicLightbox.create(`<img src="${ev.target.dataset.source}">`)
   modal.show();
+  const visible = modal.visible()
+  if (visible) {
+    window.addEventListener('keydown', onKeyDown)
+  }
 });
 
+
+function onKeyDown(ev) {
+  if (ev.code === 'Escape') {
+    modal.close();
+    window.removeEventListener('keydown', onKeyDown);
+  }
+}
 
