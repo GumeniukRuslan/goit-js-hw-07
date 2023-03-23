@@ -10,6 +10,9 @@ function createGalleryElement(el) {
       src="${el.preview}"
       data-source="${el.original}"
       alt="${el.description}"
+      loading="lazy"
+      width=372
+      height=240  
     />
   </a>
 </li>`
