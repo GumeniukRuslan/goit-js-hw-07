@@ -1,6 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 
 const galleryBox = document.querySelector('.gallery');
+const body = document.querySelector('body');
 
 function createGalleryElement(el) {
   return `<li class="gallery__item">
@@ -29,8 +30,7 @@ galleryBox.addEventListener('click', ev => {
   }
   modal = basicLightbox.create(`<img src="${ev.target.dataset.source}">`)
   modal.show();
-  const visible = modal.visible()
-  if (visible) {
+  if (modal.visible()) {
     window.addEventListener('keydown', onKeyDown)
   }
 });
